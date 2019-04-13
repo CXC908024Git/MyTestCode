@@ -16,12 +16,12 @@ def submit():
     
 root = Tk()
 root.iconbitmap('C:/Users/cxc/Desktop/py2exe/Hex2Str.ico')
-root.title("十六进制串转ACSII码字符串")
+root.title("十六进制串和ACSII码字符串互转")
 frame = Frame(root)
-frame.pack(padx=100, pady=60, ipadx=20)
+frame.pack(padx=100, pady=80, ipadx=5)
 
 lab0 = Label(frame, text="Author:蔡学超")
-lab0.grid(row=0, column=0, padx=5, pady=30, sticky=W)
+lab0.grid(row=0, column=0, padx=5, pady=30,sticky=W)
 
 lab1 = Label(frame, text="源十六进制串:")
 lab1.grid(row=1, column=0, padx=5, pady=5, sticky=W)
