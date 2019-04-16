@@ -9,7 +9,6 @@ req_w = root.winfo_reqwidth()
 req_h = root.winfo_reqheight()
 w = 600
 h = 400
-print(req_w)
 k1 = w/req_w
 x = (root.winfo_screenwidth() - root.winfo_reqwidth())/2 - (w-req_w)/2
 y = (root.winfo_screenheight() - root.winfo_reqheight())/2 - (h-req_h)/2
