@@ -13,7 +13,7 @@ LIBS = -L$(TPBUS_HOME)/lib -ltpbus -ltpCustom -lsqlite3 $(MQLIBS) $(SYSLIBS)
 
 .SUFFIXES:	.c .o
 
-all:testwc add test0910 test1017 test0114 test0219 test111 test112 testbank test0307 test0418 test0429 test0506 test0610 test0619 test0716 test00
+all:testwc add test0910 test1017 test0114 test0219 test111 test112 testbank test0307 test0418 test0429 test0506 test0610 test0619 closefile test00
 
 .c.o:
 	$(CC) -o $*.o $(CFLAGS) $*.c $(INCLUDE)
@@ -77,8 +77,8 @@ test0619:test0619.o
 	$(CC) -o $@ test0619.o
 
 
-test0716:test0716.o
-	$(CC) -o $@ test0716.o
+closefile:closefile.o
+	$(CC) -o $@ closefile.o
 
 
 test00:test00.o
