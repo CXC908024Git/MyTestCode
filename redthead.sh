@@ -6,6 +6,6 @@ fi
 
 cat $1 > temp1
 cat $2 >> temp1
-mv temp $2
+mv temp1 $2
 
 echo "redirect successfully"
