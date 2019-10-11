@@ -1,3 +1,3 @@
-# MyTestCode
-# for test code on iphone
-# you like me
+### Project:MyTestCode
+### mac,iphone,ubuntu,windows
+### python,c/c++,shell,Linux
