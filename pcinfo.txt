@@ -1,2 +1,3 @@
 lenovo Thinkpad E560
+sys:ubuntu,mac
 caixuechao
