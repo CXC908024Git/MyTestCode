@@ -1,0 +1,147 @@
+# Makefile
+
+CC   = cc
+
+#保留使用
+SHCFLAGS  = -fPIC
+CFLAGS = -g
+INCLUDE = -I$(HOME)/workspace/include
+LIBS = -L$(HOME)/workspace/lib -lpubfun
+LIBOBJS = pubfun.o
+
+#-e指定入口,函数中必须要由exit(0)
+
+.SUFFIXES:	.c .o
+
+all:lib bin clean
+bin:test0723 showdate calsorc testwc dateall closefile findchr testvarargv testaixisstaticarea testsprintf testsleep testpopen teststaticint testfork deluds getdetiltime testportopen test0823 testport testitoa teststack testcore testqsort testprinthz testsqlite linkoper
+lib:libpubfun.so
+
+libpubfun.so:pubfun.c
+	$(CC) $(CFLAGS) -shared -fPIC -o $@ pubfun.c $(INCLUDE)
+	mv $@ ../lib
+
+test0723:test0723.c
+	$(CC) $(CFLAGS) -o $@ test0723.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+showdate:showdate.c
+	$(CC) $(CFLAGS) -o $@ showdate.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+calsorc:calsorc.c
+	$(CC) $(CFLAGS) -o $@ calsorc.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+testwc:testwc.c
+	$(CC) $(CFLAGS) -o $@ testwc.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+dateall:dateall.c
+	$(CC) $(CFLAGS) -o $@ dateall.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+closefile:closefile.c
+	$(CC) $(CFLAGS) -o $@ closefile.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+findchr:findchr.c
+	$(CC) $(CFLAGS) -o $@ findchr.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+testvarargv:testvarargv.c
+	$(CC) $(CFLAGS) -o $@ testvarargv.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+testaixisstaticarea:testaixisstaticarea.c
+	$(CC) $(CFLAGS) -o $@ testaixisstaticarea.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+testsprintf:testsprintf.c
+	$(CC) $(CFLAGS) -o $@ testsprintf.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+testsleep:testsleep.c
+	$(CC) $(CFLAGS) -o $@ testsleep.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+testpopen:testpopen.c
+	$(CC) $(CFLAGS) -o $@ testpopen.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+teststaticint:teststaticint.c
+	$(CC) $(CFLAGS) -o $@ teststaticint.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+testfork:testfork.c
+	$(CC) $(CFLAGS) -o $@ testfork.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+deluds:deluds.c
+	$(CC) $(CFLAGS) -o $@ deluds.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+getdetiltime:getdetiltime.c
+	$(CC) $(CFLAGS) -o $@ getdetiltime.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+testportopen:testportopen.c
+	$(CC) $(CFLAGS) -o $@ testportopen.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+test0823:test0823.c
+	$(CC) $(CFLAGS) -o $@ test0823.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+testport:testport.c
+	$(CC) $(CFLAGS) -o $@ testport.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+testitoa:testitoa.c
+	$(CC) $(CFLAGS) -o $@ testitoa.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+teststack:teststack.c
+	$(CC) $(CFLAGS) -o $@ teststack.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+testcore:testcore.c
+	$(CC) $(CFLAGS) -o $@ testcore.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+testqsort:testqsort.c
+	$(CC) $(CFLAGS) -o $@ testqsort.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+testprinthz:testprinthz.c
+	$(CC) $(CFLAGS) -o $@ testprinthz.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+testsqlite:testsqlite.c
+	$(CC) $(CFLAGS) -o $@ testsqlite.c $(INCLUDE) $(LIBS) -lsqlite3
+	mv $@ ../bin
+
+
+linkoper:linkoper.c
+	$(CC) $(CFLAGS) -o $@ linkoper.c $(INCLUDE) $(LIBS)
+	mv $@ ../bin
+
+
+clean:
+	rm -f *.o
