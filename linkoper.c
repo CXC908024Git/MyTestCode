@@ -8,6 +8,10 @@ typedef struct Node
 
 pNode CreateLink(void);
 void PrintList(pNode List);
+void SelList(pNode List);
+void DelList(pNode List);
+void InsList(pNode List);
+void UpList(pNode List);
 
 int main(void)
 {
@@ -19,6 +23,10 @@ int main(void)
 		return 1;
 	}
 	PrintList(list);
+	SelList(list);
+	DelList(list);
+	InsList(list);
+	UpList(list);
 	return 0;
 }
 
@@ -34,6 +42,7 @@ pNode CreateLink(void)
     }
 	pNode Tail = Head; 
 	Tail->next = NULL;
+	//new节点永远跟随头节点
 
 	printf("请输入需要创建的节点数:\n");
 	scanf("%d",&len);
@@ -46,12 +55,12 @@ pNode CreateLink(void)
             return NULL;
         }
         printf("请输入第 %d 个节点的数据：", i + 1);
-        scanf("%d", &val);    //    输入链表节点的数据
+        scanf("%d", &val); 
 
-        Newnode->data = val;    //    把数据赋值给节点数据域
-        Tail->next = Newnode;    //    末尾节点指针指向下一个新节点
-        Newnode->next = NULL;        //    新节点指针指向为空
-        Tail = Newnode;    //    将新节点复制给末尾节点        
+        Newnode->data = val; 
+        Tail->next = Newnode;    //尾节点的next指针指向下一个新节点
+        Newnode->next = NULL;    //新节点的next指向空，代表链表结束
+        Tail = Newnode;          //将新节点地址指向尾节点      
     }
     printf("创建链表成功\n");
     return Head;    //    返回头节点
@@ -62,11 +71,145 @@ void PrintList(pNode List)
     pNode P = List->next;    //    首节点赋值给临时节点P
     printf("遍历链表的值为：");
     if (P == NULL)
+	{
        printf("链表为空");
+	   exit(0);
+	}
     while (P != NULL)        //当临时节点P不为尾节点时，输出当前节点值 
     {
         printf("%d ", P->data);
         P = P->next;
     }
     printf("\n");
+}
+
+void SelList(pNode List)
+{
+	pNode P  = List->next;
+	int i,cnt;
+	cnt=1;
+	printf("请输入需要查询的节点号:\n");
+	scanf("%d",&i);
+	if(P == NULL)
+	{
+	   printf("链表为空"); 
+	   exit(0);
+	}
+	while (P != NULL)
+	{
+		if(cnt==i)
+		{
+			printf("第[%d]个节点的值为[%d]\n",cnt,P->data);  
+			break;
+		}
+		else
+		{
+			P = P->next;
+			cnt+=1;
+		}
+	}
+}
+
+void DelList(pNode List)
+{
+	pNode P  = List->next;
+	pNode PF,PD; //PD是待删除节点,PF是跟随节点
+	PD = P;
+	int nbr,i;
+	nbr=1;
+	printf("请输入需要删除的节点号:\n");
+	scanf("%d",&i); 
+	if(P == NULL)
+	{
+       printf("链表为空");
+	   exit(0);
+	}
+	while (P != NULL) 
+	{
+		if(nbr==i)
+		{
+			PF->next = PD->next;
+			free(PD);
+			break;
+		}
+		else
+		{
+			PF = PD;
+			PD = PD->next;
+			nbr+=1;
+		}
+	}
+	printf("删除节点后");
+	PrintList(List);
+}
+
+void InsList(pNode List)
+{
+	pNode P  = List->next;
+	pNode PI;//PI是跟随节点
+	pNode PN = malloc(sizeof(Node));//PN是新节点
+	PI = P;
+	int nbr,i,val;
+	nbr=1;
+	printf("请输入需要插入新节点的位置:\n");
+	scanf("%d",&i);
+	printf("请输入需要插入新节点的值:\n");
+	scanf("%d",&val);
+	if(P == NULL)
+	{
+		printf("链表为空"); 
+		exit(0);
+	}
+	while (P != NULL)
+	{
+		if(nbr==i)
+		{
+	        PN->data = val;
+			PN->next = PI->next;
+			PI->next = PN;
+			break;
+		}
+		else
+		{
+			nbr+=1;
+			PI = PI->next; 
+		}
+	}
+	printf("插入后");
+	PrintList(List); 
+}
+
+void UpList(pNode List)
+{
+	pNode P  = List->next;
+	pNode PI;//PI是跟随节点
+    PI = P;
+	int nbr,i;
+	int val = 0;
+	nbr =1;
+	printf("请输入需要更新的节点位置:\n");
+	scanf("%d",&i);
+	printf("请输入需要更新的值:\n");
+	scanf("%d",&val);
+	if(P == NULL)   
+	{
+		printf("链表为空");  
+		exit(0);
+	}
+	while (P != NULL)
+	{
+		if(nbr==i)
+		{
+			PI->data = val;
+			break;
+		}
+		else
+		{
+			nbr+=1; 
+			PI = PI->next;
+		}
+	}
+	PI = PI->next;
+	printf("更新后");
+	PrintList(List);
 }
