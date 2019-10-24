@@ -13,7 +13,7 @@ void DelList(pNode List);
 void InsList(pNode List);
 void UpList(pNode List);
 
-int main(void)
+int main(int argc,char **argv)
 {
 	pNode list;
 	list = CreateLink();
@@ -22,11 +22,26 @@ int main(void)
 		printf("创建链表失败\n");
 		return 1;
 	}
-	PrintList(list);
-	SelList(list);
-	DelList(list);
-	InsList(list);
-	UpList(list);
+    switch(argv[1][0])
+    {
+        case 'p':
+            PrintList(list);
+            break;
+        case 's':
+            SelList(list);
+            break;
+        case 'd':
+            DelList(list);
+            break;
+        case 'i':
+            InsList(list);
+            break;
+        case 'u':
+            UpList(list);
+            break;
+        default:
+            break;
+    }
 	return 0;
 }
 
@@ -126,24 +141,33 @@ void DelList(pNode List)
 	}
 	while (P != NULL) 
 	{
-		if(nbr==i)
-		{
-			PF->next = PD->next;
-			free(PD);
-			break;
-		}
-		else
-		{
-			PF = PD;
-			PD = PD->next;
-			nbr+=1;
-		}
+        if(i==1)
+        {
+            List->next = P->next;
+            free(P);
+            break;
+        }
+        else
+        {
+            if(nbr==i)
+            {
+                PF->next = PD->next;
+                free(PD);
+                break;
+            }
+            else
+            {
+                PF = PD;
+                PD = PD->next;
+                nbr+=1;
+            }
+        }
 	}
 	printf("删除节点后");
 	PrintList(List);
 }
 
-void InsList(pNode List)
+void InsList(pNode List)//在第i个元素的后面插入
 {
 	pNode P  = List->next;
 	pNode PI;//PI是跟随节点
