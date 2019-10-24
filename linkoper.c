@@ -15,6 +15,11 @@ void UpList(pNode List);
 
 int main(int argc,char **argv)
 {
+	if(argv[1]==NULL)
+	{
+		printf("The Usage:linkoper actcode\n");
+		return -1;
+	}
 	pNode list;
 	list = CreateLink();
 	if(list == NULL)
