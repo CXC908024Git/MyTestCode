@@ -1,3 +1,0 @@
-lenovo Thinkpad E560
-sys:ubuntu,mac,windows
-caixuechao
