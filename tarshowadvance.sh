@@ -6,8 +6,8 @@ DATENOW=`date +'%Y%m%d'`
 mkfifo /tmp/tarfifo
 TARFIFO=/tmp/tarfifo
 
-lsitcnt=`ls -rlt|awk '{if(NR>1) print $9}'|egrep -v ".db|\.zip|\.tar"`
-total_size_list=`ls -rlt|awk '{if(NR>1) print $9}'|egrep -v ".db|\.zip|\.tar"|xargs du -sH|awk '{print $1}'`
+lsitcnt=`ls -rlt|awk '{if(NR>1) print $9}'|egrep -v "*"`
+total_size_list=`ls -rlt|awk '{if(NR>1) print $9}'|egrep -v "*"|xargs du -sH|awk '{print $1}'`
 total_size=`echo $total_size_list|awk 'BEGIN{sum_size=0} {for(i=1;i<=NF;i++) sum_size=sum_size+$i} END{print sum_size}'`
 let per_size=${total_size}/100
 
@@ -48,7 +48,7 @@ core_advance()
 
 core_advance &
 sonpid=$!
-ls -rlt|awk '{if(NR>1) print $9}'|egrep -v ".db|\.zip|\.tar"|xargs tar -cvf cxc.$DATENOW.tar >$TARFIFO 2> /dev/null
+ls -rlt|awk '{if(NR>1) print $9}'|egrep -v "*"|xargs tar -cvf cxc.$DATENOW.tar >$TARFIFO 2> /dev/null
 ret=$?
 
 wait ${sonpid}
