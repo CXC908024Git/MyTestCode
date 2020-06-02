@@ -19,7 +19,6 @@ public class AutoCar extends Car {
 		AutoCar ac = new AutoCar();
 		System.out.println("自动挡汽车有2块踏板。");
 		oper(ac);
-		System.out.println("ok");
 	}
 	
 }
