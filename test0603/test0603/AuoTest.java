@@ -1,12 +1,11 @@
-package test0603001;
+package test0603;
 
-public class TestHello {
+public class AuoTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("Hello");
+		System.out.println("ssss");
 
 	}
 
 }
-

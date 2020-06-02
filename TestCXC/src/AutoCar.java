@@ -1,5 +1,3 @@
-package test0603;
-
 class Car
 {
 	static String part1 = "油门踏板";
@@ -19,7 +17,5 @@ public class AutoCar extends Car {
 		AutoCar ac = new AutoCar();
 		System.out.println("自动挡汽车有2块踏板。");
 		oper(ac);
-		System.out.println("ok");
 	}
-	
 }
