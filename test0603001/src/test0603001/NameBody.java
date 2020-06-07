@@ -19,7 +19,6 @@ public class NameBody {
 			e.printStackTrace();
 		}
 		
-
 	}
 	
 	void dM(String name) throws Exception
@@ -38,6 +37,11 @@ public class NameBody {
 
 class AbrodException extends Exception
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1612594480798586826L;
+
 	AbrodException(String message)
 	{
 		super(message);
