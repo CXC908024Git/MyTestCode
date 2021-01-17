@@ -1,0 +1,99 @@
+#include "sqlca.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct{
+char id_nbr[8+1];
+char name[30+1];
+int age;
+float point;
+}TblStuPoint;
+
+/*static TblStuPoint tbsp;*/
+int lMDCommit(void)
+{
+    EXEC SQL COMMIT;
+    return sqlca.sqlcode;
+}
+
+int lMDConnect(void)
+{
+    EXEC SQL CONNECT :"cxc" IDENTIFIED BY :"cxc" USING :"XE"; 
+    return  sqlca.sqlcode;
+}
+
+int lMDDisConnect(void)
+{
+    EXEC SQL COMMIT RELEASE;
+    return sqlca.sqlcode;
+}
+
+int HDtab(int handtype,TblStuPoint *vtabstupoint)
+{
+
+    switch(handtype)
+    {
+        case 1:
+        {
+            EXEC SQL SELECT
+            NVL(ID_NBR,' '),
+            NVL(NAME,' '),
+            AGE,
+            POINT
+            INTO
+            :vtabstupoint->id_nbr,
+            :vtabstupoint->name,
+            :vtabstupoint->age,
+            :vtabstupoint->point from tbl_stu_point
+            where
+            ID_NBR = :vtabstupoint->id_nbr;
+            return sqlca.sqlcode;
+            break;
+        }
+        case 2:
+        {
+        	EXEC SQL DECLARE cur1 cursor for SELECT
+        	NVL(ID_NBR,' '),
+            NVL(NAME,' '),
+            AGE,
+            POINT 
+            from
+            tbl_stu_point
+            where
+            ID_NBR >= :vtabstupoint->id_nbr
+            ORDER BY ID_NBR;
+            return sqlca.sqlcode;
+            break;  	
+        }
+        case 3:
+        {
+        	EXEC SQL open cur1;
+        	return sqlca.sqlcode;
+        	break;
+        }
+        case 4:
+        {
+        	EXEC SQL fetch cur1
+        	into
+        	:vtabstupoint->id_nbr,
+            :vtabstupoint->name,
+            :vtabstupoint->age,
+            :vtabstupoint->point;
+            return sqlca.sqlcode;
+            break;
+        }
+        case 5:
+        {
+        	EXEC SQL close cur1;
+        	return sqlca.sqlcode;
+        	break;
+        }
+        default:
+        {
+            return 0;
+        }
+        return 0;
+    }
+
+}

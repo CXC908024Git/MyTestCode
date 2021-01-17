@@ -1,0 +1,130 @@
+#include <stdio.h>
+#include <string.h>
+#include <dlfcn.h>
+
+EXEC SQL INCLUDE sqlca;
+/**********************************************/
+/* 数据库提交                                   */
+/**********************************************/
+void lMDbCommit()
+{
+    EXEC SQL COMMIT WORK;
+}
+
+/**********************************************/
+/* 数据库回滚                                 */
+/**********************************************/
+void lMDbRollBack()
+{
+    EXEC SQL ROLLBACK WORK;
+}
+
+void lMDbDisConnect()
+{
+    EXEC SQL COMMIT RELEASE;
+}
+
+int lMDbConnect()
+{
+    EXEC SQL BEGIN DECLARE SECTION;
+        char db_name[30];
+        char db_passwd[50];
+    EXEC SQL END DECLARE SECTION;
+    
+    EXEC SQL CONNECT :cxc IDENTIFIED BY :cxc;
+    return  sqlca.sqlcode;
+}
+
+/* check the db connection status
+ * try reconnect if possible
+ */
+
+/*******************************************
+ * may be this way cost too much resources *
+ *******************************************/
+int lMDbIsConn()
+{
+    int max = 2;
+    int ret = 0;
+
+    char chkstr[] = "SELECT * FROM dual";
+    EXEC SQL EXECUTE IMMEDIATE :chkstr;
+    if (sqlca.sqlcode) {
+        for (max; max; max--) {
+            ret = lMDbConnect();
+            if (!ret) {
+                break;
+            }
+            sleep(1);
+        }
+        return ret;
+    }
+}
+
+/* 设置事务中的保存点 */
+int lMDbsetSavePoint(char * name)
+{
+    char    sqlstmt[255];
+    sprintf( sqlstmt, "savepoint %s", name );
+    EXEC SQL EXECUTE IMMEDIATE :sqlstmt;
+    return sqlca.sqlcode;
+}
+
+/* 回滚到之前的保存点 */
+int lMDbrollbackSavePoint(char * name)
+{
+    char    sqlstmt[255];
+    sprintf( sqlstmt, "rollback to savepoint %s", name );
+    EXEC SQL EXECUTE IMMEDIATE :sqlstmt;
+    return sqlca.sqlcode;
+}
+
+/* 释放之前设置的保存点 */
+int lMDbreleaseSavePoint(char * name)
+{
+    char    sqlstmt[255];
+    sprintf( sqlstmt, "release savepoint %s", name );
+    EXEC SQL EXECUTE IMMEDIATE :sqlstmt;
+    return sqlca.sqlcode;
+}
+
+int gettranno(char *bankno, char *tranno)
+{
+    EXEC SQL BEGIN DECLARE SECTION;
+        long    sTranNbr;
+        char    sqlstring[101];
+    EXEC SQL END DECLARE SECTION;
+
+    memset(sqlstring, 0, sizeof(sqlstring));
+    sprintf(sqlstring, "SELECT trannoseq_%4.4s.NEXTVAL FROM DUAL", bankno);
+
+    EXEC SQL PREPARE sql_tranno FROM :sqlstring;
+    if (sqlca.sqlcode != 0)
+    {
+        return 1;
+    }
+
+    sqlca.sqlcode = 0;
+    EXEC SQL DECLARE cur_tranno CURSOR FOR sql_tranno;
+    if (sqlca.sqlcode != 0)
+    {
+        return 2;
+    }
+
+    EXEC SQL OPEN cur_tranno;
+    if (sqlca.sqlcode != 0)
+    {
+        return 3;
+    }
+
+    EXEC SQL fetch cur_tranno into :sTranNbr;
+    if (sqlca.sqlcode != 0)
+    {
+        return 4;
+    }
+
+    sprintf(tranno, "%06d", sTranNbr);
+
+    return 0;
+    
+}

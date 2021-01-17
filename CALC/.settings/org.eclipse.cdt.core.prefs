@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+environment/project/cdt.managedbuild.config.gnu.macosx.exe.debug.1981243946/CPLUS_INCLUDE_PATH/delimiter=\:
+environment/project/cdt.managedbuild.config.gnu.macosx.exe.debug.1981243946/CPLUS_INCLUDE_PATH/operation=append
+environment/project/cdt.managedbuild.config.gnu.macosx.exe.debug.1981243946/CPLUS_INCLUDE_PATH/value=/Users/xccai/Documents/oracleclient/sdk/include
+environment/project/cdt.managedbuild.config.gnu.macosx.exe.debug.1981243946/C_INCLUDE_PATH/delimiter=\:
+environment/project/cdt.managedbuild.config.gnu.macosx.exe.debug.1981243946/C_INCLUDE_PATH/operation=append
+environment/project/cdt.managedbuild.config.gnu.macosx.exe.debug.1981243946/C_INCLUDE_PATH/value=/Users/xccai/Documents/oracleclient/sdk/include
+environment/project/cdt.managedbuild.config.gnu.macosx.exe.debug.1981243946/append=true
+environment/project/cdt.managedbuild.config.gnu.macosx.exe.debug.1981243946/appendContributed=true

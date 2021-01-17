@@ -14,6 +14,12 @@ public class Compare {
 		System.out.println(Integer.toHexString(a));
 		System.out.println(Integer.toOctalString(a));
 		System.out.println(Integer.toString(a, 15));	
+		
+		System.out.println(Integer.TYPE);
+		
+		Integer b = Integer.parseInt("234");
+		System.out.println(b.shortValue());
+		
 
 	}
 

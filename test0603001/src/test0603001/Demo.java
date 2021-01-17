@@ -33,15 +33,15 @@ public class Demo {
 
 }
 
-class ClassNotFoundException extends Exception
+/*class ClassNotFoundException extends Exception
 {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3693831164544757301L;
+	//private static final long serialVersionUID = 3693831164544757301L;
 
-	ClassNotFoundException(String message)
-	{
-		super(message);
-	}
-}
+	//ClassNotFoundException(String message)
+	//{
+		//super(message);
+	//}
+//}
